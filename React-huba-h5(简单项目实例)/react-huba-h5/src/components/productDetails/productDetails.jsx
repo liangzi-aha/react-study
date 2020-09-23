@@ -117,7 +117,7 @@ export default class productDetails extends React.Component {
         var params = { 'params': '{"productId":"' + linkParams.get('id') + '"}' };
         fetch.productDetails(params).then(res => {
             console.log(res);
-            if (res.code === 20000) {
+            if (res.code == 20000) {
                 // 获取默认规格的id
                 var planIdList = res.data.prodPlanList[this.state.activityPlan].planAttrKeyList.map(element => {
                     return element.planAttrValList.length == 0 ? 0 : element.planAttrValList[0].id
@@ -203,10 +203,21 @@ export default class productDetails extends React.Component {
                                     {
                                         this.state.productDetails.prodPlanList.map((element, index) => {
                                             return <Button type={this.state.activityPlan == index ? "primary" : "ghost"} inline size="small" style={{ marginRight: '8px' }} key={index} onClick={() => {
+                                                // 获取默认规格的id
+                                                var planIdList = this.state.productDetails.prodPlanList[index].planAttrKeyList.map(temp => {
+                                                    return temp.planAttrValList.length == 0 ? 0 : temp.planAttrValList[0].id
+                                                });
                                                 this.setState({
                                                     activityPlan: index,
-                                                    activityPlanId: element.id
-                                                })
+                                                    activityPlanId: element.id,
+                                                    planActivityIdList: planIdList,
+                                                    planActivityList: new Array(this.state.productDetails.prodPlanList[index].planAttrKeyList.length).fill(0),
+                                                }, () => {
+                                                    this.priceCalculation();
+                                                });
+                                               
+                                                console.log(planIdList);
+                                                
                                             }}>{element.planName}</Button>
                                         })
                                     }
@@ -243,18 +254,21 @@ export default class productDetails extends React.Component {
                                 animationType="slide-up"
                                 afterClose={() => { }}
                                 closable
+                                style={{maxHeight:'80%',overflow:'scroll'}}
                             >
                                 <div className="specification">
                                     <WingBlank>
                                         {
                                             this.state.productDetails.prodPlanList[this.state.activityPlan].planAttrKeyList.map((element, pIndex)=>{
                                                 return <div className="specificationContent" key={pIndex}>
-                                                    <p>{element.attrName}</p>
-                                                    {
-                                                        element.planAttrValList.map((temp, cIndex)=>{
-                                                            return <Button key={cIndex} type={cIndex == this.state.planActivityList[pIndex] ? "primary" : "ghost"} inline size="small" name={temp.id} style={{ marginRight: '10px',marginBottom:'5px' }} onClick={() => { this.selectBtn(pIndex, cIndex, temp.id)} }>{temp.attrValue}</Button>
-                                                        })
-                                                    }
+                                                    <div style={Number(element.isDisplay) === 1 ? { display: 'none'} : {}}>
+                                                        <p>{element.attrName}</p>
+                                                        {
+                                                            element.planAttrValList.map((temp, cIndex) => {
+                                                                return <Button key={cIndex} type={cIndex == this.state.planActivityList[pIndex] ? "primary" : "ghost"} inline size="small" name={temp.id} style={{ marginRight: '10px', marginBottom: '5px' }} onClick={() => { this.selectBtn(pIndex, cIndex, temp.id) }}>{temp.attrValue}</Button>
+                                                            })
+                                                        }
+                                                    </div>
                                                 </div>
                                             })
                                         }

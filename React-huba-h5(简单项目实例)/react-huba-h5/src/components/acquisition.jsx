@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tabs, Badge, SearchBar } from 'antd-mobile';
-import { NavBar, Icon } from 'antd-mobile';
+import { Tabs, Badge } from 'antd-mobile';
+import { NavBar } from 'antd-mobile';
 import AcquisitionList from './acquisitionList/acquisitionList';
 
 export default class acquisition extends React.Component {

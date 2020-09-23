@@ -43,7 +43,7 @@ class Demo extends React.Component {
         }).then(res => {
             const dataList = res.list;
 
-            if (res.totalCount == this.props.date.dataArr.length) { // 判断是否已经没有数据了
+            if (res.totalCount === this.props.date.dataArr.length) { // 判断是否已经没有数据了
                 this.props.setProductListDate(this.props.ListKey, {
                     refreshing: false,
                     isLoading: false,

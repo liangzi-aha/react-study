@@ -2,7 +2,6 @@
 import { ListView, PullToRefresh } from 'antd-mobile';
 import { NavLink } from "react-router-dom";
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import fetch from '../../fetch/fetch';
 import './productList.less';
 
@@ -162,7 +161,7 @@ export default class ProductList extends React.Component {
                 onScroll={() => {  }}
                 scrollRenderAheadDistance={500}
                 onEndReached={this.onEndReached}
-                onEndReachedThreshold={10}
+                onEndReachedThreshold={200}
             />
         );
     }

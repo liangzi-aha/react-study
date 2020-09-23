@@ -1,4 +1,4 @@
-import { HttpGet,HttpPost } from './api';
+import { HttpPost } from './api';
 
 export default {
     getLogin(params) {

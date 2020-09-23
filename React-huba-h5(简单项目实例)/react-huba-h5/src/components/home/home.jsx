@@ -11,7 +11,7 @@ import GirdenuImg7 from '../../static/images/home/home-icon7.png';
 import GirdenuImg8 from '../../static/images/home/home-icon8.png';
 import AgentPlan from '../agentPlan/agentPlan';
 import LifeMenu from '../lifeMenu/lifeMenu';
-import { Link } from 'react-router-dom';
+import { NavBar } from 'antd-mobile';
 
 
 // 九宫格
@@ -60,9 +60,6 @@ class Girdenu extends React.Component{
 }
 
 export default class Home extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount() {
         
@@ -71,6 +68,7 @@ export default class Home extends React.Component{
     render(){
         return(
             <div style={{ 'overflow': 'hidden',"backgroundColor":"white"}}>
+                <NavBar mode="light" style={{ borderBottom: "solid 1px #ebedf0" }}>保险经纪网</NavBar>
                 <Banner />
                 <Girdenu routerChildPage={this.props.routerChildPage }/>
                 <AgentPlan/>
